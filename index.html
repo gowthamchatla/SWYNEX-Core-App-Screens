@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>QuickTask — Daily Task & Habit Tracker</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<div class="phone">
+
+  <!-- ONBOARDING -->
+  <section class="screen" id="screen-onboarding">
+    <div class="statusbar"><span>9:41</span><span>100%</span></div>
+    <div class="onboarding-art">
+      <div class="onboarding-circle">
+        <svg width="60" height="70" viewBox="0 0 60 70" fill="none">
+          <rect x="2" y="2" width="56" height="66" rx="8" fill="#fff" stroke="#378ADD" stroke-width="2"/>
+          <circle cx="16" cy="18" r="4" fill="none" stroke="#378ADD" stroke-width="2"/>
+          <line x1="26" y1="18" x2="48" y2="18" stroke="#B4B2A9" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="16" cy="34" r="4" fill="#378ADD"/>
+          <path d="M14 34 L15.5 35.5 L18.5 31.5" stroke="#fff" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <line x1="26" y1="34" x2="48" y2="34" stroke="#B4B2A9" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="16" cy="50" r="4" fill="none" stroke="#378ADD" stroke-width="2"/>
+          <line x1="26" y1="50" x2="42" y2="50" stroke="#B4B2A9" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h1>Small steps,<br/>every day</h1>
+      <p>Track daily tasks and build habits without the clutter.</p>
+      <div class="dots"><span class="dot active"></span><span class="dot"></span><span class="dot"></span></div>
+    </div>
+    <button class="btn-primary" id="btn-get-started">Get started</button>
+  </section>
+
+  <!-- HOME -->
+  <section class="screen hidden" id="screen-home">
+    <div class="statusbar"><span>9:41</span><span>100%</span></div>
+    <header class="home-header">
+      <p class="eyebrow-date" id="today-date"></p>
+      <h1>Today</h1>
+    </header>
+
+    <div class="summary-card">
+      <span id="summary-count">0 of 0 done</span>
+      <span class="streak">🔥 <span id="summary-streak">0</span> day streak</span>
+    </div>
+
+    <div class="list-block">
+      <p class="section-label">Tasks</p>
+      <div id="task-list" class="item-list"></div>
+    </div>
+
+    <div class="list-block">
+      <p class="section-label">Habits</p>
+      <div id="habit-list" class="item-list"></div>
+    </div>
+
+    <button class="fab" id="btn-add">
+      <svg width="20" height="20" viewBox="0 0 20 20"><path d="M10 2v16M2 10h16" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></svg>
+    </button>
+
+    <nav class="bottom-nav">
+      <button class="nav-item active" data-target="screen-home">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 9l7-6 7 6v8a1 1 0 01-1 1h-4v-6H8v6H4a1 1 0 01-1-1V9z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <span>Home</span>
+      </button>
+      <button class="nav-item" data-target="screen-progress">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="10" width="3" height="7" fill="currentColor"/><rect x="8.5" y="5" width="3" height="12" fill="currentColor"/><rect x="14" y="8" width="3" height="9" fill="currentColor"/></svg>
+        <span>Progress</span>
+      </button>
+      <button class="nav-item" data-target="screen-profile">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="6.5" r="3.2" stroke="currentColor" stroke-width="1.6"/><path d="M3.5 17c1.2-3.6 4-5.4 6.5-5.4s5.3 1.8 6.5 5.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <span>Profile</span>
+      </button>
+    </nav>
+  </section>
+
+  <!-- ADD TASK -->
+  <section class="screen hidden" id="screen-add">
+    <div class="statusbar"><span>9:41</span><span>100%</span></div>
+    <header class="modal-header">
+      <button class="text-btn" id="btn-cancel-add">Cancel</button>
+      <h2>New item</h2>
+      <button class="text-btn accent" id="btn-save-add">Save</button>
+    </header>
+
+    <div class="field">
+      <label>Name</label>
+      <input type="text" id="input-name" placeholder="e.g. Read 10 pages" />
+    </div>
+
+    <div class="field">
+      <label>Type</label>
+      <div class="segmented">
+        <button class="segment active" data-type="task">Task</button>
+        <button class="segment" data-type="habit">Habit</button>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Category</label>
+      <select id="input-category">
+        <option>Personal</option>
+        <option>Work</option>
+        <option>Health</option>
+        <option>Study</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label>Reminder (optional)</label>
+      <input type="time" id="input-reminder" value="20:00" />
+    </div>
+
+    <button class="btn-primary" id="btn-save-item">Save item</button>
+  </section>
+
+  <!-- PROGRESS -->
+  <section class="screen hidden" id="screen-progress">
+    <div class="statusbar"><span>9:41</span><span>100%</span></div>
+    <header class="home-header">
+      <h1>Progress</h1>
+      <p class="eyebrow-date">This week</p>
+    </header>
+
+    <div class="stat-row">
+      <div class="stat-card">
+        <span class="stat-label">Completed</span>
+        <span class="stat-value" id="stat-completed">0</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Best streak</span>
+        <span class="stat-value accent" id="stat-streak">0 days</span>
+      </div>
+    </div>
+
+    <p class="section-label">Tasks completed</p>
+    <div class="bar-chart" id="bar-chart"></div>
+
+    <p class="section-label">Habit streaks</p>
+    <div id="habit-streaks" class="item-list plain"></div>
+
+    <nav class="bottom-nav">
+      <button class="nav-item" data-target="screen-home">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 9l7-6 7 6v8a1 1 0 01-1 1h-4v-6H8v6H4a1 1 0 01-1-1V9z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <span>Home</span>
+      </button>
+      <button class="nav-item active" data-target="screen-progress">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="10" width="3" height="7" fill="currentColor"/><rect x="8.5" y="5" width="3" height="12" fill="currentColor"/><rect x="14" y="8" width="3" height="9" fill="currentColor"/></svg>
+        <span>Progress</span>
+      </button>
+      <button class="nav-item" data-target="screen-profile">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="6.5" r="3.2" stroke="currentColor" stroke-width="1.6"/><path d="M3.5 17c1.2-3.6 4-5.4 6.5-5.4s5.3 1.8 6.5 5.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <span>Profile</span>
+      </button>
+    </nav>
+  </section>
+
+  <!-- PROFILE -->
+  <section class="screen hidden" id="screen-profile">
+    <div class="statusbar"><span>9:41</span><span>100%</span></div>
+    <header class="home-header"><h1>Profile</h1></header>
+
+    <div class="profile-row">
+      <div class="avatar">A</div>
+      <div>
+        <p class="profile-name">Alex Kumar</p>
+        <p class="profile-email">alex.kumar@email.com</p>
+      </div>
+    </div>
+
+    <p class="section-label">Preferences</p>
+    <div class="settings-row">
+      <span>Notifications</span>
+      <button class="switch on" id="switch-notif" role="switch" aria-checked="true"><span class="knob"></span></button>
+    </div>
+    <div class="settings-row">
+      <span>Dark mode</span>
+      <button class="switch" id="switch-dark" role="switch" aria-checked="false"><span class="knob"></span></button>
+    </div>
+    <div class="settings-row static">
+      <span>Default reminder time</span>
+      <span class="muted">8:00 PM</span>
+    </div>
+
+    <p class="section-label">Account</p>
+    <div class="settings-row">
+      <span>Edit profile</span>
+      <span class="chevron">›</span>
+    </div>
+    <div class="settings-row">
+      <span class="danger">Log out</span>
+    </div>
+
+    <nav class="bottom-nav">
+      <button class="nav-item" data-target="screen-home">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 9l7-6 7 6v8a1 1 0 01-1 1h-4v-6H8v6H4a1 1 0 01-1-1V9z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <span>Home</span>
+      </button>
+      <button class="nav-item" data-target="screen-progress">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="10" width="3" height="7" fill="currentColor"/><rect x="8.5" y="5" width="3" height="12" fill="currentColor"/><rect x="14" y="8" width="3" height="9" fill="currentColor"/></svg>
+        <span>Progress</span>
+      </button>
+      <button class="nav-item active" data-target="screen-profile">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="6.5" r="3.2" stroke="currentColor" stroke-width="1.6"/><path d="M3.5 17c1.2-3.6 4-5.4 6.5-5.4s5.3 1.8 6.5 5.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <span>Profile</span>
+      </button>
+    </nav>
+  </section>
+
+</div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
