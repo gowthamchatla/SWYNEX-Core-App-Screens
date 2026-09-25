@@ -243,6 +243,18 @@ body {
 }
 .field input::placeholder { color: var(--text-faint); }
 
+.field input.invalid,
+.field select.invalid {
+  outline: 1.5px solid var(--danger);
+  outline-offset: -1.5px;
+}
+.field-error {
+  color: var(--danger);
+  font-size: 12px;
+  margin: 6px 0 0;
+}
+.field-error.hidden { display: none; }
+
 .segmented { display: flex; gap: 8px; }
 .segment {
   flex: 1;
