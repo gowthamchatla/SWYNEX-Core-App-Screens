@@ -75,7 +75,12 @@ document.getElementById("btn-add").addEventListener("click", function () {
   document.getElementById("input-category").value = "Personal";
   document.getElementById("input-reminder").value = "20:00";
   setPendingType("task");
+  clearNameError();
   showScreen("screen-add");
+});
+
+document.getElementById("input-name").addEventListener("input", function () {
+  clearNameError();
 });
 
 document.getElementById("btn-cancel-add").addEventListener("click", function () {
@@ -104,13 +109,51 @@ function bindSegments() {
   }
 }
 
+function showNameError(message) {
+  var nameInput = document.getElementById("input-name");
+  var errorEl = document.getElementById("error-name");
+  errorEl.textContent = message;
+  errorEl.classList.remove("hidden");
+  nameInput.classList.add("invalid");
+  nameInput.focus();
+}
+
+function clearNameError() {
+  var nameInput = document.getElementById("input-name");
+  var errorEl = document.getElementById("error-name");
+  errorEl.classList.add("hidden");
+  nameInput.classList.remove("invalid");
+}
+
 function saveNewItem() {
   var nameInput = document.getElementById("input-name");
   var name = nameInput.value.replace(/^\s+|\s+$/g, "");
+
+  // Validation: required field
   if (!name) {
-    nameInput.focus();
+    showNameError("Please enter a name for this item.");
     return;
   }
+  // Validation: minimum length
+  if (name.length < 2) {
+    showNameError("Name must be at least 2 characters.");
+    return;
+  }
+  // Validation: no duplicate active items with the same name and type
+  var isDuplicate = false;
+  for (var i = 0; i < items.length; i++) {
+    if (items[i].type === pendingType && items[i].name.toLowerCase() === name.toLowerCase()) {
+      isDuplicate = true;
+      break;
+    }
+  }
+  if (isDuplicate) {
+    showNameError("You already have a " + pendingType + " with this name.");
+    return;
+  }
+
+  clearNameError();
+
   var category = document.getElementById("input-category").value;
   var newItem = {
     id: Date.now().toString(),
