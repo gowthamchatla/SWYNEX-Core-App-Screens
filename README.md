@@ -10,6 +10,22 @@ This implements the primary screens defined in Task 1 (App Concept and Screen Fl
 Plain HTML, CSS, and JavaScript (no framework). Chosen so it can be run and
 reviewed locally with zero setup — just open `index.html` in a browser.
 
+## Task progression
+
+- **Task 1** — App concept and screen flow (design doc)
+- **Task 2** — Core app screens implemented (this codebase)
+- **Task 3** — Added validation and confirmed persistent local state (see below)
+
+## Task 3: Validation & persistent state
+
+The **create-and-list** feature path (Add Task/Habit → appears on Home) now includes:
+
+- **Required field validation** — an empty name shows an inline error and blocks saving
+- **Minimum length validation** — names shorter than 2 characters are rejected
+- **Duplicate detection** — you can't create two items of the same type with the same name
+- **Empty states** — the Tasks/Habits lists show a friendly message when there's nothing to display yet
+- **Persistent local state** — all items are saved to `localStorage` under the key `quicktask_items_v1`, so your data survives a page refresh or browser restart
+
 ## Screens included
 
 1. **Onboarding** — app intro with a "Get started" CTA
