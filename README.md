@@ -1,69 +1,97 @@
-# QuickTask — Core App Screens
-
-SWYNEX Internship — Task 2 (Core App Screens)
+# QuickTask
 
 A daily micro-task and habit tracker, built as a mobile-responsive web app.
-This implements the primary screens defined in Task 1 (App Concept and Screen Flow).
 
-## Tech used
+**SWYNEX Internship — Final App Project (Task 4)**
 
-Plain HTML, CSS, and JavaScript (no framework). Chosen so it can be run and
-reviewed locally with zero setup — just open `index.html` in a browser.
+QuickTask helps users track small daily to-dos and simple habits — like
+"drink water," "read 10 pages," or "submit assignment" — without the
+overhead of a full project-management tool.
 
-## Task progression
+---
 
-- **Task 1** — App concept and screen flow (design doc)
-- **Task 2** — Core app screens implemented (this codebase)
-- **Task 3** — Added validation and confirmed persistent local state (see below)
+## Screenshots
 
-## Task 3: Validation & persistent state
+| Onboarding | Home | Add Task |
+|---|---|---|
+| ![Onboarding](screenshots/01-onboarding.png) | ![Home](screenshots/02-home.png) | ![Add Task](screenshots/03-add-task.png) |
 
-The **create-and-list** feature path (Add Task/Habit → appears on Home) now includes:
+| Validation | Progress | Profile |
+|---|---|---|
+| ![Validation error](screenshots/04-add-task-validation.png) | ![Progress](screenshots/05-progress.png) | ![Profile](screenshots/06-profile.png) |
 
-- **Required field validation** — an empty name shows an inline error and blocks saving
-- **Minimum length validation** — names shorter than 2 characters are rejected
-- **Duplicate detection** — you can't create two items of the same type with the same name
-- **Empty states** — the Tasks/Habits lists show a friendly message when there's nothing to display yet
-- **Persistent local state** — all items are saved to `localStorage` under the key `quicktask_items_v1`, so your data survives a page refresh or browser restart
+---
 
-## Screens included
+## Demo note
 
-1. **Onboarding** — app intro with a "Get started" CTA
-2. **Home** — today's tasks and habits, progress summary, streak counter, quick-add button
-3. **Add Task / Habit** — form to create a new task or habit (name, type, category, reminder time)
-4. **Progress** — weekly completion chart and habit streaks
-5. **Profile** — user info and settings (notifications, dark mode toggle)
+QuickTask is a single-page app with five screens: **Onboarding**, **Home**,
+**Add Task/Habit**, **Progress**, and **Profile**. From Onboarding, tapping
+**Get started** leads to Home, which lists today's tasks and habits as a
+checklist. Tapping the floating **+** button opens the Add screen, where a
+new task or habit can be created with a name, type, category, and optional
+reminder time. The form validates the name field (required, minimum
+length, no duplicates) and shows an inline error if the input is invalid.
+Saved items appear immediately on Home and persist across page reloads via
+`localStorage`. The bottom navigation bar switches between Home, Progress
+(a weekly completion chart and habit streaks), and Profile (user info and
+settings toggles).
+
+---
+
+## Tech stack
+
+Plain **HTML, CSS, and JavaScript** — no framework, no build step, no
+dependencies. This was a deliberate choice so the app can be opened and
+reviewed instantly, by anyone, with nothing to install.
 
 ## Features
 
-- Full navigation between all 5 screens (onboarding → home → bottom tabs)
-- Add new tasks/habits from the Home screen; they appear immediately
-- Tap any task/habit to mark it done/undone; the summary and streaks update live
-- Progress screen shows a weekly bar chart and per-habit streak counts
-- State is saved to `localStorage`, so your tasks persist between page reloads
-- Fully responsive layout — works on mobile screen sizes and in desktop browsers
+- **5 fully working screens** with real navigation (not static mockups)
+- **Create-and-list feature path** — add a task or habit, see it appear on Home instantly
+- **Form validation** — required name, minimum length, duplicate detection, all with visible inline error messages
+- **Empty states** — friendly messaging when there are no tasks/habits yet
+- **Persistent local state** — all data is saved to `localStorage` (key: `quicktask_items_v1`) and survives page reloads
+- **Interactive elements throughout** — check off tasks/habits (updates streaks and summary live), toggle settings switches, switch between Task/Habit type when adding an item
+- **Responsive layout** — works on both mobile screen sizes and desktop browsers
 
-## Running locally
+## Setup instructions
 
-No build step or dependencies required.
+No build tools, package manager, or server required.
 
+### Option 1 — open directly
+Double-click `index.html`, or open it from your browser's File menu.
+
+### Option 2 — serve locally (recommended)
 ```bash
-# Option 1: just open the file directly
-open index.html
-
-# Option 2: serve it locally (recommended for consistent behavior)
+git clone https://github.com/gowthamchatla/SWYNEX-Core-App-Screens.git
+cd SWYNEX-Core-App-Screens
 python3 -m http.server 8000
-# then visit http://localhost:8000
 ```
+Then visit `http://localhost:8000` in your browser.
+
+### Option 3 — GitHub Pages
+If Pages is enabled on this repo (Settings → Pages → source: `main` branch,
+root folder), the live app is available directly at the Pages URL shown in
+the repo's "About" section.
 
 ## Project structure
 
 ```
-quicktask-app/
-├── index.html      # all 5 screens (markup)
+.
+├── index.html          # all 5 screens (markup)
 ├── css/
-│   └── style.css   # styling for all screens
+│   └── style.css       # styling for all screens
 ├── js/
-│   └── app.js      # navigation, state, and rendering logic
+│   └── app.js           # navigation, validation, state, and rendering logic
+├── screenshots/          # screenshots used in this README
 └── README.md
 ```
+
+## Task progression
+
+| Task | What it covered |
+|---|---|
+| 1 | App concept and screen flow (design doc) |
+| 2 | Core app screens implemented as working HTML/CSS/JS |
+| 3 | Added validation, empty states, and confirmed persistent local state |
+| 4 | Polish, screenshots, setup instructions, and this documentation |
